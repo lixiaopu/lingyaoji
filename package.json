@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "玄缘阁 · 水墨风东方神秘学互动体验网站",
   "private": true,
+  "type": "module",
   "scripts": {
     "start": "serve -s . -l 8080",
     "dev": "serve -s . -l 8080"

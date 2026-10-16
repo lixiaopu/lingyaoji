@@ -83,6 +83,17 @@ button {
 .mist-2 { width: 50vw; height: 25vh; top: 45%; right: -15%; animation-duration: 40s; animation-delay: -10s; }
 .mist-3 { width: 40vw; height: 20vh; bottom: 5%; left: 25%; animation-duration: 30s; animation-delay: -20s; }
 
+/* 水墨鼠标交互 Canvas */
+.ink-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+}
+
 @keyframes drift {
   from { transform: translateX(-2vw) translateY(0); }
   to { transform: translateX(8vw) translateY(-4vh); }

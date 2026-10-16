@@ -3,18 +3,81 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>玄缘阁 · 东方神秘学互动体验</title>
-  <meta name="description" content="玄缘阁是一处可以互动的水墨风运势体验空间，提供灵签、五行、生肖、星座与每日运势等东方神秘学内容。" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet" />
+  <title>灵爻集 · 东方水墨运势画卷</title>
+  <meta name="description" content="灵爻集是一处可以互动的东方水墨画卷，提供灵签、五行、生肖、星座与每日运势等互动体验。" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <div class="ink-canvas">
-    <div class="mist mist-1" aria-hidden="true"></div>
-    <div class="mist mist-2" aria-hidden="true"></div>
-    <div class="mist mist-3" aria-hidden="true"></div>
+  <div class="ambient-bg" aria-hidden="true">
+    <div class="mist mist-1"></div>
+    <div class="mist mist-2"></div>
+    <div class="mist mist-3"></div>
+  </div>
+
+  <div class="koi-scene" aria-hidden="true">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="waterGlow" cx="60%" cy="40%" r="50%">
+          <stop offset="0%" stop-color="#d6eaf0" stop-opacity="0.22" />
+          <stop offset="60%" stop-color="#cfe2e8" stop-opacity="0.1" />
+          <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+        </radialGradient>
+        <radialGradient id="waterGlow2" cx="30%" cy="75%" r="45%">
+          <stop offset="0%" stop-color="#e8f4f8" stop-opacity="0.18" />
+          <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+        </radialGradient>
+        <linearGradient id="koiOrange" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#c45a3d" />
+          <stop offset="50%" stop-color="#e8a67e" />
+          <stop offset="100%" stop-color="#f5d8c4" />
+        </linearGradient>
+        <linearGradient id="koiWhite" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#e6e2d6" />
+          <stop offset="50%" stop-color="#fdfbf7" />
+          <stop offset="100%" stop-color="#e6e2d6" />
+        </linearGradient>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#waterGlow)" />
+      <rect width="100%" height="100%" fill="url(#waterGlow2)" />
+
+      <!-- 水波 -->
+      <g class="ripples" opacity="0.35">
+        <circle cx="280" cy="260" r="0" fill="none" stroke="#a8c8d0" stroke-width="2">
+          <animate attributeName="r" values="0;120;180" dur="6s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0.5;0;0" dur="6s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="280" cy="260" r="0" fill="none" stroke="#a8c8d0" stroke-width="1.5">
+          <animate attributeName="r" values="0;120;180" dur="6s" begin="2s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0.5;0;0" dur="6s" begin="2s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="1080" cy="680" r="0" fill="none" stroke="#a8c8d0" stroke-width="2">
+          <animate attributeName="r" values="0;100;160" dur="7s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0.4;0;0" dur="7s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="1080" cy="680" r="0" fill="none" stroke="#a8c8d0" stroke-width="1.5">
+          <animate attributeName="r" values="0;100;160" dur="7s" begin="2.5s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0.4;0;0" dur="7s" begin="2.5s" repeatCount="indefinite" />
+        </circle>
+      </g>
+
+      <!-- 双锦鲤 -->
+      <g class="koi koi-1" transform="translate(260, 240) rotate(-12)">
+        <path d="M0,0 C30,-18 70,-18 100,0 C120,12 120,40 100,52 C70,70 30,70 0,52 C-20,40 -20,12 0,0 Z" fill="url(#koiOrange)" opacity="0.85" />
+        <path d="M100,0 C115,-8 130,-6 140,8 C130,22 115,24 100,16 Z" fill="url(#koiOrange)" opacity="0.85" />
+        <circle cx="22" cy="18" r="3.5" fill="#2c2c2c" opacity="0.8" />
+        <path d="M35,26 C45,30 60,30 70,24" stroke="#b83a2b" stroke-width="2" fill="none" opacity="0.6" />
+        <path d="M45,8 C55,6 65,8 75,14" stroke="#b83a2b" stroke-width="1.8" fill="none" opacity="0.5" />
+      </g>
+
+      <g class="koi koi-2" transform="translate(1060, 660) rotate(168)">
+        <path d="M0,0 C30,-18 70,-18 100,0 C120,12 120,40 100,52 C70,70 30,70 0,52 C-20,40 -20,12 0,0 Z" fill="url(#koiWhite)" opacity="0.85" />
+        <path d="M100,0 C115,-8 130,-6 140,8 C130,22 115,24 100,16 Z" fill="url(#koiWhite)" opacity="0.85" />
+        <circle cx="22" cy="18" r="3.5" fill="#2c2c2c" opacity="0.8" />
+        <path d="M35,26 C45,30 60,30 70,24" stroke="#b83a2b" stroke-width="2" fill="none" opacity="0.5" />
+      </g>
+    </svg>
   </div>
 
   <canvas id="ink-cursor" class="ink-cursor" aria-hidden="true"></canvas>
@@ -22,8 +85,8 @@
   <header class="site-header" id="site-header">
     <div class="container header-inner">
       <a href="#home" class="logo" data-nav="home">
-        <span class="logo-seal">玄</span>
-        <span class="logo-text">玄缘阁</span>
+        <span class="logo-seal">爻</span>
+        <span class="logo-text">灵爻集</span>
       </a>
       <button class="nav-toggle" id="nav-toggle" aria-label="打开导航" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -43,59 +106,41 @@
   <main>
     <section id="home" class="page-section active">
       <div class="hero">
-        <div class="hero-ink" aria-hidden="true">
-          <svg viewBox="0 0 1440 320" preserveAspectRatio="xMidYMid slice">
-            <defs>
-              <linearGradient id="mountainGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#2b2b2b" stop-opacity="0.12" />
-                <stop offset="100%" stop-color="#1a1a1a" stop-opacity="0.35" />
-              </linearGradient>
-            </defs>
-            <path fill="url(#mountainGrad)" d="M0,224L60,213.3C120,203,240,181,360,181.3C480,181,600,203,720,224C840,245,960,267,1080,250.7C1200,235,1320,181,1380,154.7L1440,128L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
-            <path fill="#1a1a1a" fill-opacity="0.08" d="M0,256L80,245.3C160,235,320,213,480,218.7C640,224,800,256,960,261.3C1120,267,1280,245,1360,234.7L1440,224L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
-          </svg>
-        </div>
         <div class="container hero-content">
-          <div class="hero-seal">缘</div>
-          <h1 class="hero-title">玄缘阁</h1>
-          <p class="hero-subtitle">一幅可以互动的水墨画卷</p>
-          <p class="hero-lead">在留白与淡墨之间，随手抽取今日灵签，测一测五行能量，寻访你的守护生肖。不问吉凶，只取一份当下的心境。</p>
+          <div class="hero-seal">爻</div>
+          <h1 class="hero-title">灵爻集</h1>
+          <p class="hero-subtitle">一幅可以互动的东方水墨画卷</p>
+          <p class="hero-lead">在留白与淡墨之间，轻摇灵签，静观爻变。测一测你当下的能量与运势，不问吉凶，只取一份当下的心境。</p>
         </div>
       </div>
 
       <div class="container portals">
-        <div class="portal-grid">
-          <article class="portal-card" data-open="lingqian">
-            <div class="portal-icon">
-              <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 4C24 4 18 10 18 18v12c0 6 4 11 9 13v13c0 2 2 4 5 4s5-2 5-4V43c5-2 9-7 9-13V18C46 10 40 4 32 4z" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 20h20M22 28h20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            </div>
+        <div class="portal-list">
+          <article class="portal-item" data-open="lingqian">
+            <span class="portal-num">壹</span>
             <h2 class="portal-title">今日灵签</h2>
             <p class="portal-desc">轻摇签筒，等一枚签文落下。关键词、幸运色与今日建议，皆为当下的絮语。</p>
-            <button class="btn-primary">立即抽签</button>
+            <button class="btn-seal">摇签</button>
           </article>
 
-          <article class="portal-card" data-open="wuxing">
-            <div class="portal-icon">
-              <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="20" r="8" fill="none" stroke="currentColor" stroke-width="3"/><path d="M20 36c0-8 24-8 24 0v12c0 6-5 10-12 10s-12-4-12-10V36z" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M32 28v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            </div>
-            <h2 class="portal-title">五行能量测试</h2>
-            <p class="portal-desc">三个小问题，测出你当下更接近金、木、水、火、土哪一种能量，并给出性格关键词。</p>
-            <button class="btn-primary">开始测试</button>
+          <article class="portal-item" data-open="wuxing">
+            <span class="portal-num">贰</span>
+            <h2 class="portal-title">五行能量</h2>
+            <p class="portal-desc">三个小问题，测出你当下更接近金、木、水、火、土哪一种能量。</p>
+            <button class="btn-seal">测能量</button>
           </article>
 
-          <article class="portal-card" data-open="shengxiao">
-            <div class="portal-icon">
-              <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M20 12c-8 4-12 12-10 22 2 12 14 22 28 22s26-10 28-22c2-10-2-18-10-22" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="26" r="3" fill="currentColor"/><circle cx="40" cy="26" r="3" fill="currentColor"/><path d="M28 38c2 2 6 2 8 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            </div>
-            <h2 class="portal-title">我的守护生肖</h2>
-            <p class="portal-desc">输入出生年份或选择属相，生成你的专属生肖卡片与简短解读。</p>
-            <button class="btn-primary">生成生肖卡</button>
+          <article class="portal-item" data-open="shengxiao">
+            <span class="portal-num">叁</span>
+            <h2 class="portal-title">守护生肖</h2>
+            <p class="portal-desc">输入出生年份或选择属相，生成你的专属生肖解读。</p>
+            <button class="btn-seal">生成</button>
           </article>
         </div>
       </div>
 
       <div class="container section-teasers">
-        <div class="teaser-grid">
+        <div class="teaser-list">
           <a href="#daily" class="teaser" data-nav="daily">
             <span class="teaser-icon" data-icon="sun"></span>
             <span class="teaser-text">每日运势</span>
@@ -126,56 +171,56 @@
 
     <section id="daily" class="page-section">
       <div class="container narrow">
-        <div class="section-head">
+        <div class="section-head center">
           <span class="section-seal">日</span>
           <h2>每日运势</h2>
           <p class="section-sub" id="daily-date">——</p>
         </div>
         <div class="fortune-board" id="daily-board"></div>
         <div class="section-actions">
-          <button class="btn-secondary" id="daily-refresh">重新测算今日</button>
+          <button class="btn-ghost" id="daily-refresh">重新测算今日</button>
         </div>
       </div>
     </section>
 
     <section id="love" class="page-section">
       <div class="container narrow">
-        <div class="section-head">
+        <div class="section-head center">
           <span class="section-seal">爱</span>
           <h2>爱情运势</h2>
           <p class="section-sub">情如流水，缘似云烟</p>
         </div>
         <div class="fortune-board" id="love-board"></div>
         <div class="section-actions">
-          <button class="btn-secondary" id="love-refresh">换一组指引</button>
+          <button class="btn-ghost" id="love-refresh">换一组指引</button>
         </div>
       </div>
     </section>
 
     <section id="career" class="page-section">
       <div class="container narrow">
-        <div class="section-head">
+        <div class="section-head center">
           <span class="section-seal">业</span>
           <h2>事业运势</h2>
           <p class="section-sub">山高月小，水落石出</p>
         </div>
         <div class="fortune-board" id="career-board"></div>
         <div class="section-actions">
-          <button class="btn-secondary" id="career-refresh">换一组指引</button>
+          <button class="btn-ghost" id="career-refresh">换一组指引</button>
         </div>
       </div>
     </section>
 
     <section id="wealth" class="page-section">
       <div class="container narrow">
-        <div class="section-head">
+        <div class="section-head center">
           <span class="section-seal">财</span>
           <h2>财富运势</h2>
           <p class="section-sub">君子爱财，取之有道</p>
         </div>
         <div class="fortune-board" id="wealth-board"></div>
         <div class="section-actions">
-          <button class="btn-secondary" id="wealth-refresh">换一组指引</button>
+          <button class="btn-ghost" id="wealth-refresh">换一组指引</button>
         </div>
       </div>
     </section>
@@ -187,7 +232,7 @@
           <h2>十二生肖</h2>
           <p class="section-sub">十二年一轮回，属相里藏着你的底色</p>
         </div>
-        <div class="card-grid" id="zodiac-grid"></div>
+        <div class="round-grid" id="zodiac-grid"></div>
       </div>
     </section>
 
@@ -198,14 +243,14 @@
           <h2>十二星座</h2>
           <p class="section-sub">黄道十二宫，西方星象的另一种表达</p>
         </div>
-        <div class="card-grid" id="astro-grid"></div>
+        <div class="round-grid" id="astro-grid"></div>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>玄缘阁 · 本地示例数据，仅供娱乐与互动体验</p>
+      <p>灵爻集 · 本地示例数据，仅供娱乐与互动体验</p>
       <p class="footer-small">山水有相逢，问心不问卜</p>
     </div>
   </footer>

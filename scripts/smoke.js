@@ -1,4 +1,4 @@
-// 玄缘阁 · 自动化冒烟测试
+// 灵爻集 · 自动化冒烟测试
 // 使用 Puppeteer 抓取页面与弹窗截图，验证主要交互可正常运行
 
 import puppeteer from "puppeteer";
@@ -32,7 +32,7 @@ try {
   console.log("✓ 首页已截图");
 
   // 今日灵签：打开 -> 摇签 -> 截图
-  await page.click('.portal-card[data-open="lingqian"]');
+  await page.click('.portal-item[data-open="lingqian"]');
   await page.waitForSelector("#modal-overlay.open", { timeout: 5000 });
   await sleep(300);
   await page.screenshot({ path: path.join(outDir, "02-lingqian-open.png") });
@@ -43,7 +43,7 @@ try {
   await sleep(300);
 
   // 五行测试：打开 -> 答题 -> 提交 -> 截图
-  await page.click('.portal-card[data-open="wuxing"]');
+  await page.click('.portal-item[data-open="wuxing"]');
   await page.waitForSelector("#modal-overlay.open", { timeout: 5000 });
   await sleep(300);
   await page.screenshot({ path: path.join(outDir, "04-wuxing-open.png") });
@@ -58,7 +58,7 @@ try {
   await sleep(300);
 
   // 守护生肖：输入年份 -> 生成 -> 截图
-  await page.click('.portal-card[data-open="shengxiao"]');
+  await page.click('.portal-item[data-open="shengxiao"]');
   await page.waitForSelector("#modal-overlay.open", { timeout: 5000 });
   await sleep(300);
   await page.type("#guardian-year", "1995");

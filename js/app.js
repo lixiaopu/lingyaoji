@@ -1,4 +1,4 @@
-// 玄缘阁 · 主程序
+// 灵爻集 · 主程序
 import {
   lingqianData,
   wuxingData,
@@ -119,7 +119,7 @@ function lingqianView() {
       <div class="qian-stage">
         <div class="qian-tube" id="qian-tube">${iconSvgs.tube}</div>
         <div id="qian-result"></div>
-        <button class="btn-primary" id="draw-lingqian" style="margin-top:8px;">摇签</button>
+        <button class="btn-seal" id="draw-lingqian" style="margin-top:8px;">摇签</button>
       </div>
     </div>
   `;
@@ -128,7 +128,7 @@ function lingqianView() {
 function renderLingqianResult(item) {
   const levelMap = { ji: "上吉", zhong: "中平", xiong: "下签" };
   const levelClass = item.level === "ji" ? "ji" : item.level === "zhong" ? "zhong" : "xiong";
-  lastLingqianText = `【玄缘阁·今日灵签】\n${item.title} · ${levelMap[item.level]}\n${item.meaning}\n关键词：${item.keywords.join(" / ")}\n幸运色：${item.luckyColor}\n今日建议：${item.advice}`;
+  lastLingqianText = `【灵爻集·今日灵签】\n${item.title} · ${levelMap[item.level]}\n${item.meaning}\n关键词：${item.keywords.join(" / ")}\n幸运色：${item.luckyColor}\n今日建议：${item.advice}`;
 
   return `
     <div class="text-center" style="animation: sealStamp .6s ease;">
@@ -147,8 +147,8 @@ function renderLingqianResult(item) {
         <strong>今日建议：</strong>${escapeHtml(item.advice)}
       </div>
       <div class="qian-actions">
-        <button class="btn-primary" id="redraw-lingqian">重新抽取</button>
-        <button class="btn-secondary" id="copy-lingqian">复制分享</button>
+        <button class="btn-seal" id="redraw-lingqian">重新抽取</button>
+        <button class="btn-ghost" id="copy-lingqian">复制分享</button>
       </div>
     </div>
   `;
@@ -172,6 +172,7 @@ function drawLingqian() {
     tube.classList.remove("shake");
     const item = lingqianData[Math.floor(Math.random() * lingqianData.length)];
     resultBox.innerHTML = `
+      <div class="ink-bloom"></div>
       <div class="qian-stick show">${escapeHtml(item.title)}</div>
       <div style="margin-top:12px;">${renderLingqianResult(item)}</div>
     `;
@@ -242,7 +243,7 @@ function wuxingView() {
           )
           .join("")}
         <div class="text-center mt-2">
-          <button type="submit" class="btn-primary">查看结果</button>
+          <button type="submit" class="btn-seal">查看结果</button>
         </div>
       </form>
       <div id="wuxing-result"></div>
@@ -291,7 +292,7 @@ function showWuxingResult(element) {
         <p>${escapeHtml(result.desc)}</p>
         <p><strong>今日指引：</strong>${escapeHtml(result.advice)}</p>
       </div>
-      <button class="btn-secondary" id="restart-wuxing">重新测试</button>
+      <button class="btn-ghost" id="restart-wuxing">重新测试</button>
     </div>
   `;
   $("#wuxing-form").style.display = "none";
@@ -310,10 +311,10 @@ function guardianView() {
   return `
     <div>
       <h3 class="modal-title" id="modal-title">我的守护生肖</h3>
-      <p class="modal-subtitle">输入出生年份，或点击下方属相快速生成专属卡片</p>
+      <p class="modal-subtitle">输入出生年份，或点击下方属相快速生成专属解读</p>
       <div class="guardian-form">
         <input type="number" id="guardian-year" placeholder="例如 1995" min="1" max="2100">
-        <button class="btn-primary" id="generate-by-year">按年份生成</button>
+        <button class="btn-seal" id="generate-by-year">按年份生成</button>
       </div>
       <div class="zodiac-selector" id="guardian-selector">
         ${zodiacAnimals
@@ -346,7 +347,7 @@ function renderGuardianCard(index) {
 
   $("#guardian-result").innerHTML = `
     <div class="guardian-card" style="animation: sealStamp .5s ease;">
-      <div class="zodiac-symbol">${z.symbol}</div>
+      <div class="round-symbol">${z.symbol}</div>
       <h3>${escapeHtml(z.name)}年 · ${escapeHtml(z.name)}</h3>
       <p class="years">常见年份：${escapeHtml(z.years)}</p>
       <p><strong>性格底色：</strong>${escapeHtml(z.trait)}</p>
@@ -430,7 +431,7 @@ function fortuneCard(title, iconKey, texts, rng) {
   );
 
   return `
-    <article class="fortune-card">
+    <article class="fortune-row">
       <header>
         <span class="fortune-icon">${iconSvgs[iconKey]}</span>
         <h3>${escapeHtml(title)}</h3>
@@ -459,7 +460,7 @@ function renderCardGrid(containerId, items, type) {
         <div class="flip-card" data-name="${escapeHtml(item.name)}" tabindex="0" role="button" aria-label="查看${escapeHtml(item.name)}">
           <div class="flip-card-inner">
             <div class="flip-card-front">
-              <div class="zodiac-symbol">${item.symbol}</div>
+              <div class="round-symbol">${item.symbol}</div>
               <h3>${escapeHtml(item.name)}</h3>
               <div class="meta">${escapeHtml(meta)}</div>
             </div>
@@ -484,7 +485,7 @@ function renderCardGrid(containerId, items, type) {
 
 /* ===== 入口卡片绑定 ===== */
 function initPortals() {
-  $$(".portal-card").forEach((card) => {
+  $$(".portal-item").forEach((card) => {
     card.addEventListener("click", () => {
       const mode = card.dataset.open;
       if (mode === "lingqian") {

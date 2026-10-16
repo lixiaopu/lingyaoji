@@ -1,4 +1,4 @@
-// 玄缘阁 · 本地示例数据
+// 灵爻集 · 本地示例数据
 // 全部文案为简体中文，不依赖外部 API
 
 export const lingqianData = [

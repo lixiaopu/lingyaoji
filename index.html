@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>玄缘阁 · 东方神秘学互动体验</title>
+  <meta name="description" content="玄缘阁是一处可以互动的水墨风运势体验空间，提供灵签、五行、生肖、星座与每日运势等东方神秘学内容。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="ink-canvas">
+    <div class="mist mist-1" aria-hidden="true"></div>
+    <div class="mist mist-2" aria-hidden="true"></div>
+    <div class="mist mist-3" aria-hidden="true"></div>
+  </div>
+
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="#home" class="logo" data-nav="home">
+        <span class="logo-seal">玄</span>
+        <span class="logo-text">玄缘阁</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="打开导航" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="main-nav" id="main-nav" aria-label="主导航">
+        <a href="#home" data-nav="home">首页</a>
+        <a href="#daily" data-nav="daily">每日运势</a>
+        <a href="#love" data-nav="love">爱情运势</a>
+        <a href="#career" data-nav="career">事业运势</a>
+        <a href="#wealth" data-nav="wealth">财富运势</a>
+        <a href="#zodiac" data-nav="zodiac">十二生肖</a>
+        <a href="#astro" data-nav="astro">十二星座</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="page-section active">
+      <div class="hero">
+        <div class="hero-ink" aria-hidden="true">
+          <svg viewBox="0 0 1440 320" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <linearGradient id="mountainGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#2b2b2b" stop-opacity="0.12" />
+                <stop offset="100%" stop-color="#1a1a1a" stop-opacity="0.35" />
+              </linearGradient>
+            </defs>
+            <path fill="url(#mountainGrad)" d="M0,224L60,213.3C120,203,240,181,360,181.3C480,181,600,203,720,224C840,245,960,267,1080,250.7C1200,235,1320,181,1380,154.7L1440,128L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
+            <path fill="#1a1a1a" fill-opacity="0.08" d="M0,256L80,245.3C160,235,320,213,480,218.7C640,224,800,256,960,261.3C1120,267,1280,245,1360,234.7L1440,224L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
+          </svg>
+        </div>
+        <div class="container hero-content">
+          <div class="hero-seal">缘</div>
+          <h1 class="hero-title">玄缘阁</h1>
+          <p class="hero-subtitle">一幅可以互动的水墨画卷</p>
+          <p class="hero-lead">在留白与淡墨之间，随手抽取今日灵签，测一测五行能量，寻访你的守护生肖。不问吉凶，只取一份当下的心境。</p>
+        </div>
+      </div>
+
+      <div class="container portals">
+        <div class="portal-grid">
+          <article class="portal-card" data-open="lingqian">
+            <div class="portal-icon">
+              <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 4C24 4 18 10 18 18v12c0 6 4 11 9 13v13c0 2 2 4 5 4s5-2 5-4V43c5-2 9-7 9-13V18C46 10 40 4 32 4z" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 20h20M22 28h20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <h2 class="portal-title">今日灵签</h2>
+            <p class="portal-desc">轻摇签筒，等一枚签文落下。关键词、幸运色与今日建议，皆为当下的絮语。</p>
+            <button class="btn-primary">立即抽签</button>
+          </article>
+
+          <article class="portal-card" data-open="wuxing">
+            <div class="portal-icon">
+              <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="20" r="8" fill="none" stroke="currentColor" stroke-width="3"/><path d="M20 36c0-8 24-8 24 0v12c0 6-5 10-12 10s-12-4-12-10V36z" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M32 28v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <h2 class="portal-title">五行能量测试</h2>
+            <p class="portal-desc">三个小问题，测出你当下更接近金、木、水、火、土哪一种能量，并给出性格关键词。</p>
+            <button class="btn-primary">开始测试</button>
+          </article>
+
+          <article class="portal-card" data-open="shengxiao">
+            <div class="portal-icon">
+              <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M20 12c-8 4-12 12-10 22 2 12 14 22 28 22s26-10 28-22c2-10-2-18-10-22" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="26" r="3" fill="currentColor"/><circle cx="40" cy="26" r="3" fill="currentColor"/><path d="M28 38c2 2 6 2 8 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <h2 class="portal-title">我的守护生肖</h2>
+            <p class="portal-desc">输入出生年份或选择属相，生成你的专属生肖卡片与简短解读。</p>
+            <button class="btn-primary">生成生肖卡</button>
+          </article>
+        </div>
+      </div>
+
+      <div class="container section-teasers">
+        <div class="teaser-grid">
+          <a href="#daily" class="teaser" data-nav="daily">
+            <span class="teaser-icon" data-icon="sun"></span>
+            <span class="teaser-text">每日运势</span>
+          </a>
+          <a href="#love" class="teaser" data-nav="love">
+            <span class="teaser-icon" data-icon="heart"></span>
+            <span class="teaser-text">爱情运势</span>
+          </a>
+          <a href="#career" class="teaser" data-nav="career">
+            <span class="teaser-icon" data-icon="mountain"></span>
+            <span class="teaser-text">事业运势</span>
+          </a>
+          <a href="#wealth" class="teaser" data-nav="wealth">
+            <span class="teaser-icon" data-icon="coin"></span>
+            <span class="teaser-text">财富运势</span>
+          </a>
+          <a href="#zodiac" class="teaser" data-nav="zodiac">
+            <span class="teaser-icon" data-icon="zodiac"></span>
+            <span class="teaser-text">十二生肖</span>
+          </a>
+          <a href="#astro" class="teaser" data-nav="astro">
+            <span class="teaser-icon" data-icon="star"></span>
+            <span class="teaser-text">十二星座</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="daily" class="page-section">
+      <div class="container narrow">
+        <div class="section-head">
+          <span class="section-seal">日</span>
+          <h2>每日运势</h2>
+          <p class="section-sub" id="daily-date">——</p>
+        </div>
+        <div class="fortune-board" id="daily-board"></div>
+        <div class="section-actions">
+          <button class="btn-secondary" id="daily-refresh">重新测算今日</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="love" class="page-section">
+      <div class="container narrow">
+        <div class="section-head">
+          <span class="section-seal">爱</span>
+          <h2>爱情运势</h2>
+          <p class="section-sub">情如流水，缘似云烟</p>
+        </div>
+        <div class="fortune-board" id="love-board"></div>
+        <div class="section-actions">
+          <button class="btn-secondary" id="love-refresh">换一组指引</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="career" class="page-section">
+      <div class="container narrow">
+        <div class="section-head">
+          <span class="section-seal">业</span>
+          <h2>事业运势</h2>
+          <p class="section-sub">山高月小，水落石出</p>
+        </div>
+        <div class="fortune-board" id="career-board"></div>
+        <div class="section-actions">
+          <button class="btn-secondary" id="career-refresh">换一组指引</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="wealth" class="page-section">
+      <div class="container narrow">
+        <div class="section-head">
+          <span class="section-seal">财</span>
+          <h2>财富运势</h2>
+          <p class="section-sub">君子爱财，取之有道</p>
+        </div>
+        <div class="fortune-board" id="wealth-board"></div>
+        <div class="section-actions">
+          <button class="btn-secondary" id="wealth-refresh">换一组指引</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="zodiac" class="page-section">
+      <div class="container">
+        <div class="section-head center">
+          <span class="section-seal">生</span>
+          <h2>十二生肖</h2>
+          <p class="section-sub">十二年一轮回，属相里藏着你的底色</p>
+        </div>
+        <div class="card-grid" id="zodiac-grid"></div>
+      </div>
+    </section>
+
+    <section id="astro" class="page-section">
+      <div class="container">
+        <div class="section-head center">
+          <span class="section-seal">星</span>
+          <h2>十二星座</h2>
+          <p class="section-sub">黄道十二宫，西方星象的另一种表达</p>
+        </div>
+        <div class="card-grid" id="astro-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>玄缘阁 · 本地示例数据，仅供娱乐与互动体验</p>
+      <p class="footer-small">山水有相逢，问心不问卜</p>
+    </div>
+  </footer>
+
+  <div class="modal-overlay" id="modal-overlay" aria-hidden="true">
+    <div class="modal-paper" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="modal-close" id="modal-close" aria-label="关闭">×</button>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

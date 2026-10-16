@@ -1,0 +1,14 @@
+# 依赖
+node_modules/
+
+# 自动生成的测试截图
+screenshots/
+
+# 日志与环境
+*.log
+.env
+.env.local
+
+# 系统文件
+.DS_Store
+Thumbs.db

@@ -255,6 +255,20 @@
     </div>
   </footer>
 
+  <button class="muyu" id="muyu" aria-label="电子木鱼：敲一敲，静一静" title="敲一敲">
+    <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+      <ellipse cx="32" cy="50" rx="24" ry="5.5" fill="var(--cinnabar)" opacity="0.14" />
+      <path d="M10 42 C10 26 20 15 32 15 C44 15 54 26 54 42 C54 45 52 46 49 46 L15 46 C12 46 10 45 10 42 Z" fill="rgba(184,159,110,0.16)" stroke="var(--ink-2)" stroke-width="2" stroke-linejoin="round" />
+      <path d="M19 34 C23 24 28 21 32 21 C36 21 41 24 45 34" stroke="var(--ink-3)" stroke-width="1.4" opacity="0.55" />
+      <path d="M24 30 C26 26 29 24.5 32 24.5 C35 24.5 38 26 40 30" stroke="var(--ink-3)" stroke-width="1.2" opacity="0.4" />
+      <path d="M16 39.5 Q32 43.5 48 39.5" stroke="var(--ink-2)" stroke-width="2" stroke-linecap="round" />
+      <g class="muyu-stick">
+        <line x1="49" y1="19" x2="59" y2="33" stroke="var(--gold)" stroke-width="2.6" stroke-linecap="round" />
+        <circle cx="46.5" cy="16" r="5" fill="#fdfbf7" stroke="var(--ink-2)" stroke-width="1.6" />
+      </g>
+    </svg>
+  </button>
+
   <div class="modal-overlay" id="modal-overlay" aria-hidden="true">
     <div class="modal-paper" role="dialog" aria-modal="true" aria-labelledby="modal-title">
       <button class="modal-close" id="modal-close" aria-label="关闭">×</button>
@@ -263,6 +277,7 @@
   </div>
 
   <script type="module" src="js/ink-cursor.js"></script>
+  <script type="module" src="js/muyu.js"></script>
   <script type="module" src="js/app.js"></script>
 </body>
 </html>

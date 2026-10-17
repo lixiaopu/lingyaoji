@@ -33,8 +33,8 @@
   function buildBlotShape(radius) {
     const blobs = [];
 
-    // 中心浓墨
-    blobs.push({ ox: 0, oy: 0, r: radius, a: 0.92 });
+    // 中心浓墨（半透明淡墨，不遮挡底层文字）
+    blobs.push({ ox: 0, oy: 0, r: radius, a: 0.26 });
 
     // 内部纹理：让墨团不那么均匀
     const innerCount = 6 + Math.floor(Math.random() * 5);
@@ -45,7 +45,7 @@
         ox: Math.cos(angle) * dist,
         oy: Math.sin(angle) * dist,
         r: radius * (0.35 + Math.random() * 0.35),
-        a: 0.32 + Math.random() * 0.22
+        a: 0.1 + Math.random() * 0.08
       });
     }
 
@@ -58,7 +58,7 @@
         ox: Math.cos(angle) * dist,
         oy: Math.sin(angle) * dist,
         r: radius * (0.25 + Math.random() * 0.45),
-        a: 0.1 + Math.random() * 0.12
+        a: 0.05 + Math.random() * 0.05
       });
     }
 
@@ -67,7 +67,7 @@
 
   // 点击时创建一次水墨晕开
   function createSplash(x, y) {
-    const maxRadius = 55 + Math.random() * 28;
+    const maxRadius = 18 + Math.random() * 8;
 
     // 主墨团
     const mainBlot = {
@@ -103,7 +103,7 @@
         vy: Math.sin(angle) * speed,
         size: 1.5 + Math.random() * 3,
         age: 0,
-        maxAge: 30 + Math.floor(Math.random() * 20)
+        maxAge: 18 + Math.floor(Math.random() * 12)
       });
     }
 
@@ -111,7 +111,7 @@
       x,
       y,
       age: 0,
-      maxAge: 90 + Math.floor(Math.random() * 30),
+      maxAge: 52 + Math.floor(Math.random() * 6),
       radius: 0,
       mainBlot,
       satellites,
@@ -163,7 +163,7 @@
         if (pLife <= 0) continue;
         const px = s.x + p.x;
         const py = s.y + p.y;
-        ctx.fillStyle = `rgba(24,24,24,${0.35 * pLife * life})`;
+        ctx.fillStyle = `rgba(24,24,24,${0.18 * pLife * life})`;
         ctx.beginPath();
         ctx.arc(px, py, p.size * pLife, 0, Math.PI * 2);
         ctx.fill();
@@ -195,11 +195,18 @@
 
   window.addEventListener("resize", resize);
 
+  // 电子木鱼点击不触发墨晕（木鱼有自己的敲击反馈）
+  function onMuyu(e) {
+    return e.target instanceof Element && e.target.closest("#muyu");
+  }
+
   window.addEventListener("mousedown", (e) => {
+    if (onMuyu(e)) return;
     createSplash(e.clientX, e.clientY);
   });
 
   window.addEventListener("touchstart", (e) => {
+    if (onMuyu(e)) return;
     const t = e.touches[0];
     createSplash(t.clientX, t.clientY);
   }, { passive: true });

@@ -5,8 +5,18 @@ import {
   zodiacAnimals,
   westernZodiac,
   fortuneTexts,
-  iconSvgs
+  iconSvgs,
+  poetryData,
+  quoteData,
+  lhlData,
+  starIndexColors
 } from "./data.js";
+import {
+  getLaohuangli,
+  getStarFortune,
+  getHitokoto,
+  getJinrishici
+} from "./api.js";
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -41,6 +51,141 @@ function escapeHtml(text) {
   const div = document.createElement("div");
   div.textContent = text;
   return div.innerHTML;
+}
+
+/* ===== 外部数据：实时 API + 本地降级 ===== */
+const todayStr = new Date().toLocaleDateString("zh-CN");
+const STEMS = "甲乙丙丁戊己庚辛壬癸";
+const BRANCHES = "子丑寅卯辰巳午未申酉戌亥";
+const ZODIAC_BY_BRANCH = "鼠牛虎兔龙蛇马羊猴鸡狗猪";
+
+function ganzhiYear(year) {
+  const i = (((year - 4) % 60) + 60) % 60;
+  return STEMS[i % 10] + BRANCHES[i % 12];
+}
+
+// 日柱干支序号：1949-10-01 为甲子日（序号 0）
+function dayGanzhiIndex(date) {
+  const diff = Math.round(
+    (Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) - Date.UTC(1949, 9, 1)) / 86400000
+  );
+  return ((diff % 60) + 60) % 60;
+}
+
+function ganzhiDay(date) {
+  const i = dayGanzhiIndex(date);
+  return STEMS[i % 10] + BRANCHES[i % 12];
+}
+
+function ymd(date) {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+}
+
+function localLhl() {
+  const now = new Date();
+  const rng = seededRandom(`lhl-${todayStr}`);
+  const picks = (pool, n) => {
+    const set = new Set();
+    while (set.size < n) set.add(pick(pool, rng));
+    return [...set].join("·");
+  };
+  const dayIdx = dayGanzhiIndex(now);
+  return {
+    ganzhiYear: ganzhiYear(now.getFullYear()),
+    ganzhiDay: ganzhiDay(now),
+    yi: picks(lhlData.yiPool, 4),
+    ji: picks(lhlData.jiPool, 3),
+    shenwei: lhlData.gods.map((g) => `${g}：${pick(lhlData.directions, rng)}`).join(" "),
+    chongsha: `${ZODIAC_BY_BRANCH[dayIdx % 12]}日冲${ZODIAC_BY_BRANCH[(dayIdx + 6) % 12]}`,
+    lunar: ""
+  };
+}
+
+function lhlHtml(d) {
+  const ganzhi = [
+    d.ganzhiYear && `${d.ganzhiYear}年`,
+    d.ganzhiMonth && `${d.ganzhiMonth}月`,
+    d.ganzhiDay && `${d.ganzhiDay}日`
+  ].filter(Boolean).join(" ");
+  const parts = [
+    `<span><b>${escapeHtml(ganzhi)}</b>${d.lunar ? ` · 农历${escapeHtml(d.lunar)}` : ""}</span>`
+  ];
+  if (d.yi) parts.push(`<span class="lhl-yi">宜 ${escapeHtml(d.yi)}</span>`);
+  if (d.ji) parts.push(`<span class="lhl-ji">忌 ${escapeHtml(d.ji)}</span>`);
+  if (d.shenwei) parts.push(`<span>${escapeHtml(d.shenwei)}</span>`);
+  if (d.chongsha) parts.push(`<span>${escapeHtml(d.chongsha)}</span>`);
+  if (d.festival) parts.push(`<span>${escapeHtml(d.festival)}</span>`);
+  return parts.join("");
+}
+
+// 先渲染本地黄历，API 成功后原位升级
+function renderLhl() {
+  const el = $("#lhl-strip");
+  if (!el) return;
+  el.innerHTML = lhlHtml(localLhl());
+  getLaohuangli(ymd(new Date()))
+    .then((d) => { el.innerHTML = lhlHtml(d); })
+    .catch(() => {});
+}
+
+function poemHtml(p) {
+  return `「${escapeHtml(p.content)}」<span class="poem-src">—— ${escapeHtml([p.dynasty, p.author].filter(Boolean).join("·"))}《${escapeHtml(p.title)}》</span>`;
+}
+
+// 先渲染本地诗词，API 成功后原位升级
+function renderHeroPoem() {
+  const el = $("#hero-poem");
+  if (!el) return;
+  el.innerHTML = poemHtml(pick(poetryData, seededRandom(`poem-${todayStr}`)));
+  getJinrishici()
+    .then((p) => { el.innerHTML = poemHtml(p); })
+    .catch(() => {});
+}
+
+function quoteHtml(q) {
+  return `${escapeHtml(q.text)}${q.from ? ` <em>—— ${escapeHtml(q.from)}</em>` : ""}`;
+}
+
+// 栏目顶部寄语：先放本地句，一言接口成功后替换
+function fillBoardQuote(type) {
+  const el = $(`#${type}-quote`);
+  if (!el) return;
+  el.innerHTML = quoteHtml(pick(quoteData, seededRandom(`quote-${type}-${Date.now()}`)));
+  getHitokoto()
+    .then((q) => { el.innerHTML = quoteHtml(q); })
+    .catch(() => {});
+}
+
+// 星座卡片背面：首次翻开时实时拉取当日指数与评语
+const starCache = new Map();
+
+function localStarFortune(name) {
+  const rng = seededRandom(`star-${name}-${todayStr}`);
+  return {
+    score: `${62 + Math.floor(rng() * 34)}%`,
+    color: pick(starIndexColors, rng),
+    summary: pick(fortuneTexts.overall, rng)
+  };
+}
+
+async function ensureLiveFortune(card) {
+  const slot = card.querySelector(".live-fortune");
+  if (!slot || slot.dataset.done) return;
+  slot.dataset.done = "1";
+  slot.classList.add("loading");
+  slot.textContent = "推演中…";
+
+  const key = `star-${card.dataset.name}-${todayStr}`;
+  if (!starCache.has(key)) {
+    starCache.set(key, getStarFortune(card.dataset.name).catch(() => localStarFortune(card.dataset.name)));
+  }
+  const f = await starCache.get(key);
+  if (!slot.isConnected) return;
+  slot.classList.remove("loading");
+  // 圆卡空间有限，评语截断到两行以内；完整评语放 title 悬停可见
+  const brief = f.summary && f.summary.length > 18 ? `${f.summary.slice(0, 18)}…` : f.summary;
+  slot.title = f.summary || "";
+  slot.innerHTML = `<span class="score">综合 ${escapeHtml(f.score)}</span>${f.color ? ` · ${escapeHtml(f.color)}` : ""}<br>${escapeHtml(brief)}`;
 }
 
 /* ===== 路由切换 ===== */
@@ -125,10 +270,10 @@ function lingqianView() {
   `;
 }
 
-function renderLingqianResult(item) {
+function renderLingqianResult(item, quote) {
   const levelMap = { ji: "上吉", zhong: "中平", xiong: "下签" };
   const levelClass = item.level === "ji" ? "ji" : item.level === "zhong" ? "zhong" : "xiong";
-  lastLingqianText = `【灵爻集·今日灵签】\n${item.title} · ${levelMap[item.level]}\n${item.meaning}\n关键词：${item.keywords.join(" / ")}\n幸运色：${item.luckyColor}\n今日建议：${item.advice}`;
+  lastLingqianText = `【灵爻集·今日灵签】\n${item.title} · ${levelMap[item.level]}\n${item.meaning}\n关键词：${item.keywords.join(" / ")}\n幸运色：${item.luckyColor}\n今日建议：${item.advice}\n寄语：${quote.text}${quote.from ? `（${quote.from}）` : ""}`;
 
   return `
     <div class="text-center" style="animation: sealStamp .6s ease;">
@@ -146,6 +291,7 @@ function renderLingqianResult(item) {
       <div class="result-advice">
         <strong>今日建议：</strong>${escapeHtml(item.advice)}
       </div>
+      <p class="qian-quote">寄语 · ${escapeHtml(quote.text)}${quote.from ? `<em>—— ${escapeHtml(quote.from)}</em>` : ""}</p>
       <div class="qian-actions">
         <button class="btn-seal" id="redraw-lingqian">重新抽取</button>
         <button class="btn-ghost" id="copy-lingqian">复制分享</button>
@@ -168,13 +314,17 @@ function drawLingqian() {
   tube.classList.add("shake");
   resultBox.innerHTML = "";
 
-  setTimeout(() => {
+  // 摇签动画期间并行请求一言，失败自动回退本地备选
+  const quotePromise = getHitokoto().catch(() => pick(quoteData, seededRandom(`hitokoto-${Date.now()}`)));
+
+  setTimeout(async () => {
     tube.classList.remove("shake");
     const item = lingqianData[Math.floor(Math.random() * lingqianData.length)];
+    const quote = await quotePromise;
     resultBox.innerHTML = `
       <div class="ink-bloom"></div>
       <div class="qian-stick show">${escapeHtml(item.title)}</div>
-      <div style="margin-top:12px;">${renderLingqianResult(item)}</div>
+      <div style="margin-top:12px;">${renderLingqianResult(item, quote)}</div>
     `;
     btn.style.display = "none";
 
@@ -415,6 +565,7 @@ function renderFortuneBoard(type, containerId, seedOverride) {
   }
 
   container.innerHTML = html;
+  fillBoardQuote(type);
 }
 
 function fortuneCard(title, iconKey, texts, rng) {
@@ -466,8 +617,9 @@ function renderCardGrid(containerId, items, type) {
             </div>
             <div class="flip-card-back">
               <h3>${escapeHtml(item.name)}</h3>
-              <div class="meta">${escapeHtml(meta)}</div>
-              <div class="trait">${escapeHtml(item.trait)}</div>
+              ${type === "astro"
+                ? '<div class="live-fortune"></div>'
+                : `<div class="meta">${escapeHtml(meta)}</div><div class="trait">${escapeHtml(item.trait)}</div>`}
               <div class="trait" style="margin-top:8px;color:var(--cinnabar);">${escapeHtml(item.advice)}</div>
             </div>
           </div>
@@ -481,6 +633,15 @@ function renderCardGrid(containerId, items, type) {
     if (!card) return;
     card.classList.toggle("flipped");
   });
+
+  // 星座卡片首次翻开/悬停时拉取当日实时指数
+  if (type === "astro") {
+    $$(".flip-card", container).forEach((card) => {
+      card.addEventListener("pointerenter", () => ensureLiveFortune(card), { once: true });
+      card.addEventListener("focus", () => ensureLiveFortune(card), { once: true });
+      card.addEventListener("click", () => ensureLiveFortune(card), { once: true });
+    });
+  }
 }
 
 /* ===== 入口卡片绑定 ===== */
@@ -524,6 +685,9 @@ function init() {
 
   renderCardGrid("zodiac-grid", zodiacAnimals, "zodiac");
   renderCardGrid("astro-grid", westernZodiac, "astro");
+
+  renderHeroPoem();
+  renderLhl();
 
   // 默认首页
   if (location.hash) {

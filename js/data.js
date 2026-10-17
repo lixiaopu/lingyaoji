@@ -245,3 +245,43 @@ export const iconSvgs = {
   fortune: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>`,
   tube: `<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 4C24 4 18 10 18 18v12c0 6 4 11 9 13v13c0 2 2 4 5 4s5-2 5-4V43c5-2 9-7 9-13V18C46 10 40 4 32 4z" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 20h20M22 28h20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`
 };
+
+/* ===== API 降级备份数据 =====
+ * 网络请求失败、超时、未配置 TIANAPI_KEY 时使用，
+ * 保证页面在任何情况下都能完整渲染。
+ */
+
+// 今日诗词（首页顶部展示）本地备选
+export const poetryData = [
+  { content: "山重水复疑无路，柳暗花明又一村。", title: "游山西村", author: "陆游", dynasty: "宋" },
+  { content: "行到水穷处，坐看云起时。", title: "终南别业", author: "王维", dynasty: "唐" },
+  { content: "竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。", title: "定风波", author: "苏轼", dynasty: "宋" },
+  { content: "人生如逆旅，我亦是行人。", title: "临江仙·送钱穆父", author: "苏轼", dynasty: "宋" },
+  { content: "若无闲事挂心头，便是人间好时节。", title: "颂平常心是道", author: "无门慧开", dynasty: "宋" },
+  { content: "采菊东篱下，悠然见南山。", title: "饮酒·其五", author: "陶渊明", dynasty: "东晋" },
+  { content: "心安身自安，身安室自宽。", title: "心安吟", author: "邵雍", dynasty: "宋" },
+  { content: "宠辱不惊，闲看庭前花开花落。", title: "菜根谭", author: "洪应明", dynasty: "明" }
+];
+
+// 一言（灵签寄语 / 栏目刷新寄语）本地备选
+export const quoteData = [
+  { text: "菩提本无树，明镜亦非台。", from: "惠能" },
+  { text: "本来无一物，何处惹尘埃。", from: "惠能" },
+  { text: "一念放下，万般自在。", from: "禅语" },
+  { text: "心似白云常自在，意如流水任东西。", from: "封神演义" },
+  { text: "落花人独立，微雨燕双飞。", from: "翁宏" },
+  { text: "静水流深，沧笙踏歌。", from: "古风" },
+  { text: "千江有水千江月，万里无云万里天。", from: "雷庵正受" },
+  { text: "不是风动，不是幡动，仁者心动。", from: "坛经" }
+];
+
+// 老黄历宜忌 / 吉神方位本地备选（干支由程序按日期推算）
+export const lhlData = {
+  yiPool: ["祭祀", "祈福", "出行", "会友", "纳财", "安床", "修造", "订盟", "开市", "栽种", "读书", "扫舍"],
+  jiPool: ["诉讼", "远行", "破土", "安葬", "开仓", "伐木", "作灶", "词讼", "借贷"],
+  gods: ["喜神", "福神", "财神"],
+  directions: ["正北", "东北", "正东", "东南", "正南", "西南", "正西", "西北"]
+};
+
+// 星座指数本地备选（运势评语复用 fortuneTexts.overall 按日播种）
+export const starIndexColors = ["墨青", "月白", "朱砂", "藤黄", "黛蓝", "竹青", "藕粉", "鸦青"];

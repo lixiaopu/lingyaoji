@@ -9,6 +9,9 @@ screenshots/
 .env
 .env.local
 
+# 本地 API Key 覆盖文件（含私密信息，不入库）
+js/config.local.js
+
 # 系统文件
 .DS_Store
 Thumbs.db

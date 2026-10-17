@@ -1053,3 +1053,82 @@ button {
   18% { opacity: 0.9; }
   100% { opacity: 0; transform: translate(-50%, -64px) scale(1.02); }
 }
+
+/* 今日诗词 */
+.hero-poem {
+  margin-top: 1.8em;
+  font-family: var(--font);
+  font-size: 0.98rem;
+  color: var(--ink-3);
+  line-height: 1.9;
+  min-height: 2.6em;
+}
+
+.hero-poem .poem-src {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+}
+
+/* 老黄历 */
+.lhl-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 20px;
+  padding: 12px 8px;
+  margin-bottom: 6px;
+  border-top: 1px solid rgba(184, 159, 110, 0.15);
+  border-bottom: 1px solid rgba(184, 159, 110, 0.15);
+  font-size: 0.85rem;
+  color: var(--ink-3);
+  line-height: 1.8;
+}
+
+.lhl-strip b { color: var(--ink); font-weight: 500; }
+.lhl-yi { color: var(--cinnabar); }
+.lhl-ji { color: var(--ink-muted); }
+
+/* 栏目寄语（一言） */
+.board-quote {
+  text-align: center;
+  font-family: var(--font);
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+  margin: -4px 0 18px;
+  min-height: 1.4em;
+}
+
+.board-quote em { font-style: normal; }
+
+/* 灵签寄语 */
+.qian-quote {
+  font-family: var(--font);
+  font-size: 0.95rem;
+  color: var(--ink-3);
+  line-height: 1.9;
+  max-width: 420px;
+  margin: 0 auto 18px;
+}
+
+.qian-quote em {
+  display: block;
+  font-style: normal;
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+}
+
+/* 星座实时指数 */
+.live-fortune {
+  margin-top: 4px;
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  color: var(--ink-3);
+  line-height: 1.5;
+  max-height: 4.6em;
+  overflow: hidden;
+}
+
+.live-fortune .score { color: var(--cinnabar); }
+.live-fortune.loading { color: var(--ink-muted); }
